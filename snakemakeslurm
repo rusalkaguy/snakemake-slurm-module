@@ -8,6 +8,7 @@ EXEC="exec"
 if [ "$1" == "-debug" ]; then
     # echo commandline instead of running it
     EXEC="echo CMD: "
+    shift 1
 fi
 
 #
