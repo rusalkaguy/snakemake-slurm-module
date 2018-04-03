@@ -6,19 +6,18 @@
     "#Z": "----------------------------------------------------------------------------------"
 },
 "__default__": {
-    "#documentation": "# This is the default SLURM job config, except threads which are annotated directly on the rule",
+    "X_documentation": "# This is the default SLURM job config, except threads which are annotated directly on the rule",
     "job-name": "SM.{rule}.{wildcards}",
-    "#job-name": "SM.{rule}.{wildcards.sample} # fails for any Rule that doesn't have a 'sample' wildcard :-(",
-    "#partition": "# run sinfo to list available partitions and limitations",
+    "X_partition": "# run sinfo to list available partitions and limitations",
     "partition": "express",
-    "#time": "# Runtime in D-HH:MM:SS",
+    "X_time": "# Runtime in D-HH:MM:SS",
     "time": "02:00:00",
     "ntasks": 1,
     "cpus-per-task": 1,
     "mem-per-cpu-mb": 2000,
     "output": "logs/%j.%N.out.txt",
     "error": "logs/%j.%N.err.txt",
-    "#mail-user": "curtish@uab.edu  # this is set in snakemakeslurm",
+    "X_mail-user": "curtish@uab.edu  # this is set in snakemakeslurm",
     "mail-type": "ALL"
 },
 "#Template Rules": {

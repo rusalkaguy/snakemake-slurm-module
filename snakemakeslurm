@@ -62,6 +62,8 @@ LOCAL_CCONFIG1=./cluster.slurm.cheaha.json
 if [ -e "$LOCAL_CCONFIG1" ]; then CCONFIG="$CCONFIGS --cluster-config $LOCAL_CCONFIG1"; fi
 LOCAL_CCONFIG2=./cluster.json
 if [ -e "$LOCAL_CCONFIG2" ]; then CCONFIGS="$CCONFIGS --cluster-config $LOCAL_CCONFIG2"; fi
+LOCAL_CCONFIG3=./slurm-config.yaml
+if [ -e "$LOCAL_CCONFIG3" ]; then CCONFIGS="$CCONFIGS --cluster-config $LOCAL_CCONFIG3"; fi
 
 #
 # our __default__ SLURM error/output paths expect a logs/ subdir in PWD
