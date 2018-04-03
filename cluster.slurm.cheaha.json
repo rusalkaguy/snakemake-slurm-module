@@ -7,7 +7,7 @@
 },
 "__default__": {
     "#documentation": "# This is the default SLURM job config, except threads which are annotated directly on the rule",
-    "job-name": "SM.{rule}",
+    "job-name": "SM.{rule}.{wildcards}",
     "#job-name": "SM.{rule}.{wildcards.sample} # fails for any Rule that doesn't have a 'sample' wildcard :-(",
     "#partition": "# run sinfo to list available partitions and limitations",
     "partition": "express",
