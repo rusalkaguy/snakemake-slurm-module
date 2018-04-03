@@ -1,15 +1,34 @@
-# snakemake-slurm-uab
+# snakemake-slurm-module
 
-Working example of snakemake tutorial using UAB Cheaha computing cluster via SLURM scheduler
+On the UAB computing cluster "cheaha" this module sits on top of snakemake and automates setting of all the needed SLURM properties for the --cluster flag, so that snakemake can be run in cluster mode with minimum work.
 
-http://snakemake.readthedocs.io/en/stable/executable.html#cluster-execution
+```
+module load snakemakeslurm
+snakemakeslurm
+```
 
-Use with Snakemake tutorial at http://snakemake.readthedocs.io/en/stable/tutorial/tutorial.html
+The module contiains
+* [cluster.config.cheaha.json](cluster.config.cheaha.json) - defines all SLURM parameters for a default job: 1 core, 2G ram, 2 hours, express partition
+* [snakemakeslurm](snakemakeslurm) - builds the --cluster commandline based on snakemake docs on (cluster-execution](http://snakemake.readthedocs.io/en/stable/executable.html#cluster-execution)
 
-In this setup, one runs "snakemakeslurm" instead of "snakemake" and it pulls in the cluster config file and creates the sbatch commandline mapping. Surely there is a more elegant way to do this!
 
-Basic flow
+SYNTAX: snakemakeslurm [-debug] [snakemake flags]
 
-	source ~/snakemake-miniconda3/bin/activate snakemake-tutorial
-	snakemakeslurm 
+EXAMPLE:
+```
+module load snakemakeslurm
+snakemakeslurm  -debug -p all
+CMD: snakemake --latency-wait 45 --jobs 999 --cluster-config /share/apps/ngs-ccts/snakemakeslurm/snakemakeslurm-4.8.0-1/cluster.slurm.cheaha.json --cluster-config ./cluster.json --cluster sbatch  --cpus-per-task {threads} --mem-per-cpu {cluster.mem-per-cpu-mb} --mail-user curtish@uab.edu --job-name {cluster.job-name} --ntasks {cluster.ntasks} --partition {cluster.partition} --time {cluster.time} --mail-type {cluster.mail-type} --error {cluster.error} --output {cluster.output} -debug all
+```
 
+Notice:
+ * it has defined (mostly 1-to-1) name mappings for SLURM attributes to keys in the cluster.json file
+ * it has populated "--mail-user $USER@uab.edu"
+ * it has mapped rule.threads to SLURM:--cpus-per-task
+ * it has named the jobs SM.{rule}
+
+It loads the following cluster json files in order (and you can always add more):
+ * module/cluster.slurm.cheaha.json
+ * ./cluster.slurm.cheaha.json
+ * ./cluster.json
+ 
