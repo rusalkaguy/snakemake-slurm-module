@@ -8,7 +8,7 @@ snakemakeslurm
 ```
 
 The module contiains
-* [cluster.config.cheaha.json](cluster.config.cheaha.json) - defines all SLURM parameters for a default job: 1 core, 2G ram, 2 hours, express partition
+* [cluster.slurm.cheaha.json](cluster.slurm.cheaha.json) - defines all SLURM parameters for a default job: 1 core, 2G ram, 2 hours, express partition
 * [snakemakeslurm](snakemakeslurm) - builds the --cluster commandline based on snakemake docs on (cluster-execution](http://snakemake.readthedocs.io/en/stable/executable.html#cluster-execution)
 
 
@@ -18,7 +18,17 @@ EXAMPLE:
 ```
 module load snakemakeslurm
 snakemakeslurm  -debug -p all
-CMD: snakemake --latency-wait 45 --jobs 999 --cluster-config /share/apps/ngs-ccts/snakemakeslurm/snakemakeslurm-4.8.0-1/cluster.slurm.cheaha.json --cluster-config ./cluster.json --cluster sbatch  --cpus-per-task {threads} --mem-per-cpu {cluster.mem-per-cpu-mb} --mail-user curtish@uab.edu --job-name {cluster.job-name} --ntasks {cluster.ntasks} --partition {cluster.partition} --time {cluster.time} --mail-type {cluster.mail-type} --error {cluster.error} --output {cluster.output} -debug all
+CMD: snakemake \
+     --latency-wait 45 --jobs 999 \
+     --cluster-config /share/apps/ngs-ccts/snakemakeslurm/snakemakeslurm-4.8.0-1/cluster.slurm.cheaha.json \
+     --cluster-config ./cluster.json \
+     --cluster sbatch  \
+     --cpus-per-task {threads} --mem-per-cpu {cluster.mem-per-cpu-mb} \
+     --mail-user curtish@uab.edu --job-name {cluster.job-name} \
+     --ntasks {cluster.ntasks} --partition {cluster.partition} \
+     --time {cluster.time} --mail-type {cluster.mail-type} \
+     --error {cluster.error} --output {cluster.output} \
+     -p all
 ```
 
 Notice:
