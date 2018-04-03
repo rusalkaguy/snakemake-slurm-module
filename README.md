@@ -41,4 +41,5 @@ It loads the following cluster json files in order (and you can always add more)
  * module/cluster.slurm.cheaha.json
  * ./cluster.slurm.cheaha.json
  * ./cluster.json
+ * ./slurm-config.yaml
  
