@@ -24,7 +24,7 @@ CMD: snakemake \
      --cluster-config ./cluster.json \
      --cluster sbatch  \
      --cpus-per-task {threads} --mem-per-cpu {cluster.mem-per-cpu-mb} \
-     --mail-user curtish@uab.edu --job-name {cluster.job-name} \
+     --mail-user ${USER}@uab.edu --job-name {cluster.job-name} \
      --ntasks {cluster.ntasks} --partition {cluster.partition} \
      --time {cluster.time} --mail-type {cluster.mail-type} \
      --error {cluster.error} --output {cluster.output} \
