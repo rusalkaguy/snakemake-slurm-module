@@ -17,7 +17,7 @@
     "mem-per-cpu-mb": 2000,
     "output": "logs/%j.%N.out.txt",
     "error": "logs/%j.%N.err.txt",
-    "X_mail-user": "curtish@uab.edu  # this is set in snakemakeslurm",
+    "X_mail-user": "USER@uab.edu  # this is set in snakemakeslurm",
     "mail-type": "ALL"
 },
 "#Template Rules": {
