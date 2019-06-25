@@ -7,7 +7,7 @@
 ################################################################################
 set components [ file split [ module-info name ] ]
 set prog [ lindex $components 0 ]
-set snakemake-version [ lindex $components 1 ]
+set snakemake-version [ lindex [ split [ lindex $components 1 ] - ] 0 ]
 set script_version [ lindex $components 2 ]
 set version ${snakemake-version}-${script_version}
 set modroot /share/apps/ngs-ccts/${prog}/${prog}-${version}
