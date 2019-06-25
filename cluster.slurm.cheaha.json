@@ -16,8 +16,9 @@
     "ntasks": 1,
     "X_cpus": "# number of threads/cpus comes from the 'threads' attribute on the individual rules in the Snakefile",
     "mem-per-cpu-mb": 2000,
-    "output": "logs/%j.%N.out.txt",
-    "error": "logs/%j.%N.err.txt",
+    "X_filename_pattern: %j=jobid, %N=short_hostname, %x=job_name; see https://slurm.schedmd.com/sbatch.html#lbAH",
+    "output": "logs/%j.%N.%x.out.txt",
+    "error": "logs/%j.%N.%x.err.txt",
     "X_mail-user": "USER@uab.edu  # this is set in snakemakeslurm",
     "mail-type": "ALL"
 },
