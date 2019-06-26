@@ -15,11 +15,13 @@ if [ ! -d $1 ]; then
 	exit 1
 fi
 
-exec rsync -hav $FLAGS \
+echo "# install exec and config" 
+rsync -hav --info=name2,stats0,flist0 $FLAGS \
 	./snakemakeslurm \
 	./cluster.slurm.cheaha.json \
 	$1
 
-exec rsync -hav $FLAGS \
-	./modulefiles \
+echo "# install modulefiles" 
+rsync -hav --info=name2,stats0,flist0 $FLAGS \
+	./modulefiles/snakemakeslurm \
         $1/../../modulefiles
