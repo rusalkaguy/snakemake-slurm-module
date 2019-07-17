@@ -5,9 +5,10 @@
 
 # debugging
 EXEC="exec"
-if [ "$1" == "-debug" ]; then
+if [[ "$1" == -*debug ]]; then
     # echo commandline instead of running it
     EXEC="echo CMD: "
+    DEBUG=1
     shift 1
 fi
 
@@ -59,12 +60,12 @@ fi
 CCONFIGS="--cluster-config $(dirname $0)/cluster.slurm.cheaha.json"
 
 # look for local ones to merge
-LOCAL_CCONFIG1=./cluster.slurm.cheaha.json
-if [ -e "$LOCAL_CCONFIG1" ]; then CCONFIG="$CCONFIGS --cluster-config $LOCAL_CCONFIG1"; fi
-LOCAL_CCONFIG2=./cluster.json
-if [ -e "$LOCAL_CCONFIG2" ]; then CCONFIGS="$CCONFIGS --cluster-config $LOCAL_CCONFIG2"; fi
-LOCAL_CCONFIG3=./slurm-config.yaml
-if [ -e "$LOCAL_CCONFIG3" ]; then CCONFIGS="$CCONFIGS --cluster-config $LOCAL_CCONFIG3"; fi
+for LOCAL_CCONFIG in ./cluster.slurm.cheaha.json ./cluster.json ./slurm-config.yaml ./cluster.yaml; do
+    if [ -e "$LOCAL_CCONFIG" ]; then 
+	CCONFIGS="$CCONFIGS --cluster-config $LOCAL_CCONFIG"; 
+	if [ "$DEBUG" == "1" ]; then echo "# found $LOCAL_CCONFIG"; fi;  
+    fi
+done
 
 #
 # our __default__ SLURM error/output paths expect a logs/ subdir in PWD
