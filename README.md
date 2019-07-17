@@ -12,12 +12,12 @@ The module contiains
 * [snakemakeslurm](snakemakeslurm) - builds the --cluster commandline based on snakemake docs on (cluster-execution](http://snakemake.readthedocs.io/en/stable/executable.html#cluster-execution)
 
 
-SYNTAX: snakemakeslurm [-debug] [snakemake flags]
+SYNTAX: snakemakeslurm [--debug] [snakemake flags]
 
 EXAMPLE:
 ```
 module load snakemakeslurm
-snakemakeslurm  -debug -p all
+snakemakeslurm  --debug -p all
 CMD: snakemake \
      --latency-wait 45 --jobs 999 \
      --cluster-config /share/apps/ngs-ccts/snakemakeslurm/snakemakeslurm-4.8.0-1/cluster.slurm.cheaha.json \
