@@ -13,6 +13,14 @@ if [[ "$1" == -*debug ]]; then
 fi
 
 #
+# check for conda: sections, but no --use-conda
+#
+snakefile_has_conda=$(egrep -c "^[ ]+conda:" Snakefile)
+if [[ snakefile_has_conda -gt 0  && "$*" != *--use-conda* ]]; then
+    echo "# WARNING: Snakefile has $snakefile_has_conda 'conda:' directives, but you did not specify --use-conda"
+fi
+
+#
 # SLURM same name
 #
 # list of SLURM parameters that will come straight from cluster.slurm.cheaha.json/cluster.json with SAME NAME
