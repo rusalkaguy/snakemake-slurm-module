@@ -1,0 +1,40 @@
+#%Module1.0##################################################################### 
+##
+## snakemakeslurm
+##
+## https://github.com/rusalkaguy/snakemake-slurm-module
+##
+################################################################################
+set components [ file split [ module-info name ] ]
+set prog [ lindex $components 0 ]
+set snakemake-version [ lindex [ split [ lindex $components 1 ] - ] 0 ]
+set script_version [ lindex [ split [ lindex $components 1 ] - ] 1 ]
+set version ${snakemake-version}-${script_version}
+set modroot /share/apps/ngs-ccts/${prog}/${prog}-${version}
+set url	https://github.com/rusalkaguy/snakemake-slurm-module
+
+proc ModulesHelp { } {
+    global version modroot
+    puts stderr "\tsnakemakeslurm - have snakemake submit jobs via slurm to cheaha"
+   puts stderr "\n\tComponents $components\n"
+    puts stderr "\n\tVersion $version\n"
+    puts stderr "\n\tmodroot $modroot\n"
+}
+module-whatis   "Loads snakemakeslurm environment."
+
+# load required modules
+# UAB-HPC old module naming convention
+# #module load rc/snakemake/${snakemake-version}
+module load snakemake/${snakemake-version}-foss-2018b-Python-3.6.6
+# snakemake 4.8.0 doesn't work with Anaconda3/5.3.0
+# snakemake 5.2.4 DOES work with Anaconda3/5.3.1 - 
+module load Anaconda3/5.3.1
+# only one version at a time
+#conflict multiqc
+
+#
+#
+# Make the directories available
+prepend-path PATH        $modroot/
+#prepend-path MANPATH 	$modroot/share/man
+#prepend-path    PYTHONPATH  odroot/lib/python2.7/site-packages

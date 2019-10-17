@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#
+# typical usage
+# 
+# mkdir ../snakemakeslurm-5.2.4-1
+# ./install.sh $!
+#
+
 if [ "$1" == "-n" ]; then
     FLAGS="$1"
     shift 1
