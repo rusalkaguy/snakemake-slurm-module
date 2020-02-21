@@ -21,6 +21,14 @@ if [[ snakefile_has_conda -gt 0  && "$*" != *--use-conda* ]]; then
 fi
 
 #
+# check for singularity: sections, but no --use-singularity
+#
+snakefile_has_sing=$(egrep -c "^[ ]+singularity:" Snakefile)
+if [[ snakefile_has_sing -gt 0  && "$*" != *--use-singularity* ]]; then
+    echo "# WARNING: Snakefile has $snakefile_has_sing 'singularity:' directives, but you did not specify --use-singularity"
+fi
+
+#
 # SLURM same name
 #
 # list of SLURM parameters that will come straight from cluster.slurm.cheaha.json/cluster.json with SAME NAME
