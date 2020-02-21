@@ -16,7 +16,7 @@ The module contiains
 
 
 
-SYNTAX: snakemakeslurm [--debug] [snakemake flags]
+SYNTAX: snakemakeslurm [--debug] [--use] [snakemake flags]
 
 EXAMPLE:
 ```
@@ -34,8 +34,10 @@ CMD: snakemake \
      --error {cluster.error} --output {cluster.output} \
      -p all
 ```
+ * --debug prints snakemake commandline, but does NOT invoke snakemake.
+ * --use   adds --use-conda and/or --use-singularity if those directives are present in Snakefile
 
-Notice:
+Notes:
  * it has defined (mostly 1-to-1) name mappings for SLURM attributes to keys in the cluster.json file
  * it has populated "--mail-user $USER@uab.edu"
  * it has mapped rule.threads to SLURM:--cpus-per-task
