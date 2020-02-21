@@ -12,20 +12,43 @@ if [[ "$1" == -*debug ]]; then
     shift 1
 fi
 
+# auto-flag conda & singularity
+AUTO_USE=0
+AUTO_USE_ARGS=""
+if [[ "$1" == -*use ]]; then
+    # automatically generate --use-conda and --use-singularity, if directives present in Snaekfile
+    AUTO_USE=1
+    shift 1
+fi
+
 #
 # check for conda: sections, but no --use-conda
 #
-snakefile_has_conda=$(egrep -c "^[ ]+conda:" Snakefile)
-if [[ snakefile_has_conda -gt 0  && "$*" != *--use-conda* ]]; then
-    echo "# WARNING: Snakefile has $snakefile_has_conda 'conda:' directives, but you did not specify --use-conda"
+snakefile_has_conda=$(egrep -c "^[\t ]+conda:" Snakefile)
+if [[ snakefile_has_conda -gt 0 ]]; then 
+    if [[ "$*" != *--use-conda* ]]; then
+	if [[ "$AUTO_USE" == 0 ]]; then
+            echo "# WARNING: Snakefile has $snakefile_has_conda 'conda:' directives, but you did not specify --use-conda" >&2
+        else
+	    echo "# Snkefile has 'conda:' directive: adding --use-conda"
+            AUTO_USE_ARGS="$AUTO_USE_ARGS --use-conda"
+        fi
+    fi
 fi
 
 #
 # check for singularity: sections, but no --use-singularity
 #
-snakefile_has_sing=$(egrep -c "^[ ]+singularity:" Snakefile)
-if [[ snakefile_has_sing -gt 0  && "$*" != *--use-singularity* ]]; then
-    echo "# WARNING: Snakefile has $snakefile_has_sing 'singularity:' directives, but you did not specify --use-singularity"
+snakefile_has_sing=$(egrep -c "^[\t ]+singularity:" Snakefile)
+if [[ snakefile_has_sing -gt 0 ]]; then 
+    if [[ "$*" != *--use-singularity* ]]; then
+	if [[ "$AUTO_USE" == 0 ]]; then
+            echo "# WARNING: Snakefile has $snakefile_has_sing 'singularity:' directives, but you did not specify --use-singularity" >&2
+        else
+	    echo "# Snkefile has 'singularity:' directive: adding --use-singularity"
+            AUTO_USE_ARGS="$AUTO_USE_ARGS --use-singularity"
+        fi
+    fi
 fi
 
 #
@@ -41,7 +64,7 @@ SM_PARAMS="job-name ntasks partition time mail-type error output"
 # list of SLURM parameters that will come from Snakefile and cluster.slurm.cheaha.json/cluster.json
 # with a name mapping
 #
-SM_ARGS=""
+SM_ARGS="$AUTO_USE_ARGS"
 
 # "threads: 4" attribute directly on the rule, so works correctly for non-cluster case
 SM_ARGS="$SM_ARGS --cpus-per-task {threads}"
