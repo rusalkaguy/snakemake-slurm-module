@@ -64,7 +64,7 @@ SM_PARAMS="job-name ntasks partition time mail-type error output"
 # list of SLURM parameters that will come from Snakefile and cluster.slurm.cheaha.json/cluster.json
 # with a name mapping
 #
-SM_ARGS="$AUTO_USE_ARGS"
+SM_ARGS=""
 
 # "threads: 4" attribute directly on the rule, so works correctly for non-cluster case
 SM_ARGS="$SM_ARGS --cpus-per-task {threads}"
@@ -129,5 +129,5 @@ $EXEC snakemake \
      --latency-wait 45 \
     --jobs 999 \
     $CCONFIGS \
-    --cluster "sbatch $SM_ARGS" \
+    --cluster "sbatch $AUTO_USE_ARGS $SM_ARGS" \
     $*
