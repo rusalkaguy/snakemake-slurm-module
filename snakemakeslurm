@@ -126,8 +126,9 @@ if [ "$RC" != "0" ]; then exit $RC; fi
 #   SLURM parameters to use when submitting jobs for each rule.
 #
 $EXEC snakemake \
-     --latency-wait 45 \
+    $AUTO_USE_ARGS \
+    --latency-wait 45 \
     --jobs 999 \
     $CCONFIGS \
-    --cluster "sbatch $AUTO_USE_ARGS $SM_ARGS" \
+    --cluster "sbatch $SM_ARGS" \
     $*
