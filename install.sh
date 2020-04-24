@@ -16,7 +16,7 @@ if [ "$1" == "" ]; then
 	echo "SYNTAX: $0 target_dir"
 	echo ""
 	echo "example:"
-	latestver=$(cd modulefiles/snakemakeslurm/; ls -1 | tail -1)
+	latestver=$(cd modulefiles/snakemakeslurm/; ls -1 | grep -v \~ | tail -1)
         echo "mkdir ../snakemakeslurm-${latestver}"
         echo "$0 ../snakemakeslurm-${latestver}"
 	exit 1
