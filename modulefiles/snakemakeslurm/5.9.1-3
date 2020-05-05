@@ -25,9 +25,10 @@ module-whatis   "Loads snakemakeslurm environment with Anaconda and Singularity 
 # load required modules
 # UAB-HPC old module naming convention
 # #module load rc/snakemake/${snakemake-version}
-module load snakemake/${snakemake-version}-foss-2018b-Python-3.6.6
-module load Anaconda3/2020.02
+# load Singularity (GCC-based) first - else it will mess up Snakemake's python path
 module load Singularity/3.5.2-GCC-5.4.0-2.26
+module load Anaconda3/2020.02
+module load snakemake/${snakemake-version}-foss-2018b-Python-3.6.6
 # only one version at a time
 #conflict multiqc
 
