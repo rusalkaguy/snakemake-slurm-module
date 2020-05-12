@@ -11,7 +11,9 @@ logger = logging.getLogger("__name__")
 
 STATUS_ATTEMPTS = 20
 
-jobid = sys.argv[1]
+#jobid = sys.argv[1] # original from https://github.com/Snakemake-Profiles/slurm
+# Locally, our snakemake --cluster-status passes the args ["Submitted", "batch",  "job", JOBID]!
+jobid = sys.argv[4]
 
 
 for i in range(STATUS_ATTEMPTS):

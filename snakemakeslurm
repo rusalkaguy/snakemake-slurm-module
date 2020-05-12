@@ -96,6 +96,23 @@ fi
 #
 
 # global config lives with this script
+
+#
+# check if we have a script to get "cause of death" from SLURM
+# w/o this, if SLURM kills a job for over-time or over-mem, snakemake wont know
+# 
+# See: https://snakemake.readthedocs.io/en/stable/tutorial/additional_features.html?highlight=--cluster-status%20#using-cluster-status
+#
+SLURM_STATUS_FLAG=
+SLURM_STATUS_SCRIPT=$(dirname $0)/slurm-status.py
+if [ -e "$SLURM_STATUS_SCRIPT" ]; then 
+    if [ "$DEBUG" == "1" ]; then echo "# found $SLURM_STATUS_SCRIPT"; fi; 
+    SLURM_STATUS_FLAG=" --cluster-status $SLURM_STATUS_SCRIPT"
+else
+    echo "# WARNING: missing $SLURM_STATUS_SCRIPT "
+fi
+
+# global config lives with this script
 CCONFIGS="--cluster-config $(dirname $0)/cluster.slurm.cheaha.json"
 
 # look for local ones to merge
@@ -130,5 +147,6 @@ $EXEC snakemake \
     --latency-wait 45 \
     --jobs 999 \
     $CCONFIGS \
+    $SLURM_STATUS_FLAG \
     --cluster "sbatch $SM_ARGS" \
     $*

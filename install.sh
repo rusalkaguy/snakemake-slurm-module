@@ -30,10 +30,12 @@ fi
 echo "# install exec and config" 
 rsync -hav --info=name2,stats0,flist0 $FLAGS \
 	./snakemakeslurm \
+	./slurm-status.py \
 	./cluster.slurm.cheaha.json \
 	$1
 
 echo "# install modulefiles" 
 rsync -hav --info=name2,stats0,flist0 $FLAGS \
+        --exclude="*~" \
 	./modulefiles/snakemakeslurm \
         $1/../../modulefiles
