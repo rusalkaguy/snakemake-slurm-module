@@ -1,7 +1,7 @@
 {
 "#documenation": {
     "#A": "----------------------------------------------------------------------------------",
-    "#raw_cmdline": "Use with snakemake --cluster-config cluster.slurm.cheaha.json --cluster 'sbatch --job-name {cluster.job-name} --ntasks {cluster.ntasks} --cpus-per-task {threads} --mem-per-cpu {cluster.mem-per-cpu} --partition {cluster.partition} --time {cluster.time} --mail-user {cluster.mail-user} --mail-type {cluster.mail-type} --error {cluster.error} --output {cluster.output}'",
+    "#raw_cmdline": "Use with snakemake --cluster-config cluster.slurm.cheaha.json --cluster 'sbatch --job-name {cluster.job-name} --ntasks {cluster.ntasks} --cpus-per-task {threads} --mem-per-cpu {cluster.mem-per-cpu} --partition {cluster.partition} --time {cluster.time} --mail-user {cluster.mail-user} --mail-type {cluster.mail-type} --error {cluster.error} --output {cluster.output} --gres {cluster.gres}'",
     "#cmdline": "Or use with module ngs-ccts/snakemakeslurm which builds the raw commandline for you.",
     "#slurm partitions": "See https://docs.uabgrid.uab.edu/wiki/Slurm#Slurm_Partitions",
     "#Z": "----------------------------------------------------------------------------------"
@@ -17,6 +17,8 @@
     "ntasks": 1,
     "# cpus": "# number of threads/cpus comes from the 'threads' attribute on the individual rules in the Snakefile",
     "mem-per-cpu-mb": 2000,
+    "# gres (GPUs)": "# number of GPU (1-4 in pascalnodes[-medium] partitions)",
+    "gres": "gpu:0",
     "# output/error": "# output filenames for stdout and stderr",
     "# filename_pattern": "%j=jobid, %N=short_hostname, %x=job_name; see https://slurm.schedmd.com/sbatch.html#lbAH",
     "output": "logs/%j.%N.%x.out.txt",
